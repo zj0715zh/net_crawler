@@ -1,8 +1,10 @@
 var images = require("images");
 var fs = require("fs");
 var path = require("path");
-var fromDir = 'E:/imgSource';
-var outDir = 'E:/outputImg';
+// var fromDir = 'E:/imgSource';
+// var outDir = 'E:/outputImg';
+var fromDir = path.join(__dirname,'../../imgSource');
+var outDir = path.join(__dirname,'../../outputImg');
 
 function fileDisplay(filePath,outdir){
     //根据文件路径读取文件，返回文件列表
@@ -23,6 +25,7 @@ function fileDisplay(filePath,outdir){
                         var isFile = stats.isFile();//是文件
                         var isDir = stats.isDirectory();//是文件夹
                         if(isFile){
+                            console.log(filedir)
                             doImg(filedir,outdirect)
                         }
                         if(isDir){

@@ -25,7 +25,8 @@ let mkdirp = require('mkdirp');
 // let url = 'https://tu.ttt669.com/girl/TuiGirl/72/01.jpg';
  
 //本地存储目录
-let dir = 'E:/imgSource';
+// let dir = 'E:/imgSource';
+let dir = path.join(__dirname,'../../imgSource');
  
 //创建目录
 mkdirp(dir, function(err) {
@@ -68,19 +69,24 @@ let download = function(url, dir, filename){
 function loopGetImg() {
 	for(let qiNum=72;qiNum<74;qiNum++) {
     var dirPath = path.join(dir,qiNum.toString())
-    mkdirp(dirPath, function(err) {
-      if(err){
-        console.log(err);
-      }else{
-    		for(let imgNum=1;imgNum<5;imgNum++) {
-    			let imgNumStr = imgNum.toString().length==1?'0'+imgNum.toString():imgNum.toString()
-    			let url = 'https://tu.ttt669.com/girl/TuiGirl/'+qiNum+'/'+imgNumStr+'.jpg';
-    			let filename = qiNum+'_'+imgNumStr;
-    			download(url,dirPath,filename)
-    		}
-      }
-    });
+    mkimgdir(dirPath,qiNum)
 	}
+}
+
+function mkimgdir(dirPath,qiNum){
+  mkdirp(dirPath, function(err) {
+    if(err){
+      console.log(err);
+    }else{
+      for(let imgNum=1;imgNum<5;imgNum++) {
+        let imgNumStr = imgNum.toString().length==1?'0'+imgNum.toString():imgNum.toString()
+        let url = 'https://tu.ttt669.com/girl/TuiGirl/'+qiNum+'/'+imgNumStr+'.jpg';
+        let filename = qiNum+'_'+imgNumStr;
+        console.log(dirPath)
+        download(url,dirPath,filename)
+      }
+    }
+  });
 }
 loopGetImg()
 
